@@ -178,7 +178,7 @@
   (assert-equal "insert-if-short: multi-level nested with symbols"
                 (parameterize ([current-namespace ns])
                   (eval '(insert-if-short 'x '((a b) (c (d))) 2)))
-                '((a b) (x c (x d))))
+                '((a b) (c (x d))))
 
   ;; make-inserter with custom predicate
   (assert-equal "make-inserter with (= len 2)"
