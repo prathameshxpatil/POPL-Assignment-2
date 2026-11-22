@@ -1,5 +1,5 @@
 % Test file for P1: Department Assignment Puzzle
-% Run with: swipl -q -f GROUPID_q1.pl -l test_q1.pl -g run_tests -t halt
+% Run with: swipl -q -f 59_q1.pl -l test_q1.pl -g run_tests -t halt
 
 :- use_module(library(lists)).
 

@@ -60,14 +60,14 @@ If you need `length`, `map`, `append`, etc. — write your own (`my-length`, `my
 ## How to Run & Test
 ```bash
 # Run a Scheme file
-racket GROUPID_q3.rkt
+racket 59_q3.rkt
 
 # Test interactively
-racket -i GROUPID_q3.rkt
+racket -i 59_q3.rkt
 # Then type: (print-inorder '(4 (2 (1 () ()) (3 () ())) (6 (5 () ()) (7 () ()))))
 
 # For S2 (reads from stdin):
-echo "42 ((1 2) (3 4 5) (6) ()) 3" | racket GROUPID_q4.rkt
+echo "42 ((1 2) (3 4 5) (6) ()) 3" | racket 59_q4.rkt
 ```
 
 ## Self-Review Checklist

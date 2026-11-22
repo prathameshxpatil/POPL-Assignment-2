@@ -34,10 +34,10 @@ description: Skill file for SWI-Prolog development in CS F301 Assignment 2
 ## How to Run & Test
 ```bash
 # Run main predicate
-swipl -q -f GROUPID_q1.pl -g main -t halt
+swipl -q -f 59_q1.pl -g main -t halt
 
 # Test a specific predicate
-swipl -q -f GROUPID_q1.pl -g "clue(1, Solution)" -t halt
+swipl -q -f 59_q1.pl -g "clue(1, Solution)" -t halt
 
 # Run test file
 swipl -q -f test_q1.pl -g run_tests -t halt
