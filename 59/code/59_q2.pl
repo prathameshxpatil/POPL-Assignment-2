@@ -53,3 +53,14 @@ render_in_context(node(Op, Left, Right), ParentPrecedence, Side, Text) :-
 % render_expression/2 — Render a complete expression tree as a canonical string.
 render_expression(Tree, Text) :-
     render_in_context(Tree, 0, root, Text).
+
+% candidate_equation/2 — Generate equations whose ordered sides have the same integer value.
+candidate_equation(Numbers, Equation) :-
+    ordered_split(Numbers, LeftNumbers, RightNumbers),
+    expression_tree(LeftNumbers, LeftTree),
+    evaluate_expression(LeftTree, Value),
+    expression_tree(RightNumbers, RightTree),
+    evaluate_expression(RightTree, Value),
+    render_expression(LeftTree, LeftText),
+    render_expression(RightTree, RightText),
+    atomics_to_string([LeftText, RightText], '=', Equation).
