@@ -67,3 +67,68 @@
 (define (print-inorder tree)
   (display (inorder tree))
   (newline))
+
+; -------------------------------------------------------------------------
+; Preorder Traversal Helper (Accumulator-based to avoid append)
+;
+; Recursive reading:
+; To collect preorder traversal with an accumulator `acc`:
+; - Empty tree '() returns `acc`.
+; - For a node: recursively collect the right subtree onto `acc`,
+;   then recursively collect the left subtree onto that,
+;   and finally cons the node's value in front.
+; -------------------------------------------------------------------------
+
+; preorder-helper : tree list -> list
+(define (preorder-helper tree acc)
+  (if (null? tree)
+      acc
+      (cons (tree-val tree)
+            (preorder-helper (tree-left tree)
+                             (preorder-helper (tree-right tree) acc)))))
+
+; preorder : tree -> list
+(define (preorder tree)
+  (preorder-helper tree '()))
+
+; -------------------------------------------------------------------------
+; Postorder Traversal Helper (Accumulator-based to avoid append)
+;
+; Recursive reading:
+; To collect postorder traversal with an accumulator `acc`:
+; - Empty tree '() returns `acc`.
+; - For a node: cons the node's value onto `acc`,
+;   recursively collect the right subtree onto that,
+;   then recursively collect the left subtree onto that result.
+; -------------------------------------------------------------------------
+
+; postorder-helper : tree list -> list
+(define (postorder-helper tree acc)
+  (if (null? tree)
+      acc
+      (postorder-helper (tree-left tree)
+                        (postorder-helper (tree-right tree)
+                                          (cons (tree-val tree) acc)))))
+
+; postorder : tree -> list
+(define (postorder tree)
+  (postorder-helper tree '()))
+
+; -------------------------------------------------------------------------
+; S1.b — print-all-traversals
+;
+; Prints three lines using `display`:
+;   Line 1: inorder list (left, node, right)
+;   Line 2: preorder list (node, left, right)
+;   Line 3: postorder list (left, right, node)
+; Each line ends with a newline.
+; -------------------------------------------------------------------------
+
+; print-all-traversals : tree -> void
+(define (print-all-traversals tree)
+  (display (inorder tree))
+  (newline)
+  (display (preorder tree))
+  (newline)
+  (display (postorder tree))
+  (newline))
