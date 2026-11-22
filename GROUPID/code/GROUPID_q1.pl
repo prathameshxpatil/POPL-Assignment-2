@@ -91,3 +91,33 @@ clue(7, Solution) :-
 clue(8, Solution) :-
     member(p(_Name, research, Lang, data), Solution),
     Lang \= javascript.
+
+% =========================================================================
+% solve/1 — find a solution satisfying all clues 1-8
+% =========================================================================
+
+% solve/1 — Solution satisfies all eight clues.
+solve(Solution) :-
+    solution_template(Solution),
+    clue(1, Solution),
+    clue(2, Solution),
+    clue(3, Solution),
+    clue(4, Solution),
+    clue(5, Solution),
+    clue(6, Solution),
+    clue(7, Solution),
+    clue(8, Solution).
+
+% =========================================================================
+% main/0 — print one solution in the required format
+% =========================================================================
+
+% print_person/1 — prints one person in the format: Name = [Dept, Lang, Proj]
+print_person(p(Name, Dept, Lang, Proj)) :-
+    format("~w = [~w, ~w, ~w]~n", [Name, Dept, Lang, Proj]).
+
+% main/0 — find one solution and print all four people.
+main :-
+    solve(Solution),
+    !,
+    maplist(print_person, Solution).
