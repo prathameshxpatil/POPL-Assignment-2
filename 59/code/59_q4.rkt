@@ -41,3 +41,35 @@
               res
               (rev (cdr rem) (cons (car rem) res))))
         (loop (cdr l) (cons (f (car l)) acc)))))
+
+; -------------------------------------------------------------------------
+; S2.c — Higher-order make-inserter and insert-if-short
+; -------------------------------------------------------------------------
+
+; make-inserter : any (integer -> boolean) -> (list -> list)
+; Higher-order function that takes atom x and predicate len-ok?.
+; Returns a procedure of one argument (lst) that inserts atom x at the front
+; of every list (including '() and nested sublists) whose original length
+; satisfies (len-ok? len). Non-list atoms remain untouched.
+(define (make-inserter x len-ok?)
+  (letrec ([inserter
+            (lambda (lst)
+              (if (not (or (pair? lst) (null? lst)))
+                  lst
+                  (let* ([insert? (len-ok? (my-length lst))]
+                         [transformed (my-map (lambda (elem)
+                                                (if (or (pair? elem) (null? elem))
+                                                    (inserter elem)
+                                                    elem))
+                                              lst)])
+                    (if insert?
+                        (cons x transformed)
+                        transformed))))])
+    inserter))
+
+; insert-if-short : any list integer -> list
+; Inserts atom x at the front of every list whose original length is less
+; than n, at every level of nesting.
+; Defined strictly using make-inserter.
+(define (insert-if-short x lst n)
+  ((make-inserter x (lambda (len) (< len n))) lst))
