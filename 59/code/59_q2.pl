@@ -34,3 +34,18 @@ tree_precedence(node('+', _, _), 1).
 tree_precedence(node('-', _, _), 1).
 tree_precedence(node('*', _, _), 2).
 tree_precedence(node('/', _, _), 2).
+
+% render_in_context/4 — Render a tree with the parentheses required by its parent.
+render_in_context(num(N), _, _, Text) :-
+    number_string(N, Text).
+render_in_context(node(Op, Left, Right), ParentPrecedence, Side, Text) :-
+    tree_precedence(node(Op, Left, Right), Precedence),
+    render_in_context(Left, Precedence, left, LeftText),
+    render_in_context(Right, Precedence, right, RightText),
+    atomics_to_string([LeftText, Op, RightText], Body),
+    (   ( Precedence < ParentPrecedence
+        ; Side == right, Precedence =:= ParentPrecedence
+        )
+    ->  atomics_to_string(['(', Body, ')'], Text)
+    ;   Text = Body
+    ).
