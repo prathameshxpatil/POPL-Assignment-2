@@ -27,3 +27,10 @@ evaluate_expression(node(Op, Left, Right), Value) :-
         0 =:= A mod B,
         Value is A // B
     ).
+
+% tree_precedence/2 — Classify a tree by its root operator or numeric leaf.
+tree_precedence(num(_), 3).
+tree_precedence(node('+', _, _), 1).
+tree_precedence(node('-', _, _), 1).
+tree_precedence(node('*', _, _), 2).
+tree_precedence(node('/', _, _), 2).
