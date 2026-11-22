@@ -37,6 +37,16 @@ test_count_repair :-
     ;  format('FAIL: count_solutions([1..9]) = ~w, expected 1~n', [N])
     ).
 
+% Test: Clue 9 is true in exactly one solution of clues 1..8 and false in the others
+test_clue9_filters_exactly_two :-
+    findall(S, get_solution(S), Solutions8),
+    length(Solutions8, 3),
+    include(clue(9), Solutions8, TrueSols),
+    exclude(clue(9), Solutions8, FalseSols),
+    length(TrueSols, 1),
+    length(FalseSols, 2),
+    write('PASS: clue 9 is true in exactly 1 and false in 2 solutions of clues 1..8'), nl.
+
 % Test: each clue holds individually on at least one solution
 test_each_clue_holds :-
     forall(
@@ -83,6 +93,7 @@ run_tests :-
     test_main, nl,
     test_count_all,
     test_count_repair,
+    test_clue9_filters_exactly_two,
     test_each_clue_holds,
     test_all_distinct,
     test_count_empty,
