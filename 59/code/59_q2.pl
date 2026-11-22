@@ -68,3 +68,8 @@ candidate_equation(Numbers, Equation) :-
 % generate_equation/2 — Return the first valid equation for Numbers.
 generate_equation(Numbers, Equation) :-
     once(candidate_equation(Numbers, Equation)).
+
+% all_equations/2 — Collect the distinct equation strings in sorted order.
+all_equations(Numbers, Equations) :-
+    findall(Equation, candidate_equation(Numbers, Equation), Candidates),
+    sort(Candidates, Equations).
