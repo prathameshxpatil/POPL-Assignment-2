@@ -12,3 +12,18 @@ expression_tree(Numbers, node(Op, Left, Right)) :-
     expression_tree(Prefix, Left),
     expression_tree(Suffix, Right),
     member(Op, ['+', '-', '*', '/']).
+
+% evaluate_expression/2 — Evaluate an integer expression tree with exact division at every node.
+evaluate_expression(num(N), N) :-
+    integer(N).
+evaluate_expression(node(Op, Left, Right), Value) :-
+    evaluate_expression(Left, A),
+    evaluate_expression(Right, B),
+    (   Op = '+', Value is A + B
+    ;   Op = '-', Value is A - B
+    ;   Op = '*', Value is A * B
+    ;   Op = '/',
+        B =\= 0,
+        0 =:= A mod B,
+        Value is A // B
+    ).
