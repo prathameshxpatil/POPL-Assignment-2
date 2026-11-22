@@ -64,3 +64,7 @@ candidate_equation(Numbers, Equation) :-
     render_expression(LeftTree, LeftText),
     render_expression(RightTree, RightText),
     atomics_to_string([LeftText, RightText], '=', Equation).
+
+% generate_equation/2 — Return the first valid equation for Numbers.
+generate_equation(Numbers, Equation) :-
+    once(candidate_equation(Numbers, Equation)).
