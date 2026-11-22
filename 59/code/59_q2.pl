@@ -73,3 +73,8 @@ generate_equation(Numbers, Equation) :-
 all_equations(Numbers, Equations) :-
     findall(Equation, candidate_equation(Numbers, Equation), Candidates),
     sort(Candidates, Equations).
+
+% count_equations/2 — Count the distinct valid equations for Numbers.
+count_equations(Numbers, N) :-
+    all_equations(Numbers, Equations),
+    length(Equations, N).
