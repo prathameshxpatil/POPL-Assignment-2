@@ -121,3 +121,22 @@ main :-
     solve(Solution),
     !,
     maplist(print_person, Solution).
+
+% =========================================================================
+% P1.b — count_solutions/2
+% =========================================================================
+
+% apply_clues/2 — apply only the clues whose numbers are in Active.
+apply_clues([], _Solution).
+apply_clues([N|Rest], Solution) :-
+    clue(N, Solution),
+    apply_clues(Rest, Solution).
+
+% count_solutions/2 — N is the number of solutions satisfying exactly
+% the clues listed in Active.
+count_solutions(Active, N) :-
+    findall(Solution,
+            ( solution_template(Solution),
+              apply_clues(Active, Solution) ),
+            Solutions),
+    length(Solutions, N).
