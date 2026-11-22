@@ -49,3 +49,7 @@ render_in_context(node(Op, Left, Right), ParentPrecedence, Side, Text) :-
     ->  atomics_to_string(['(', Body, ')'], Text)
     ;   Text = Body
     ).
+
+% render_expression/2 — Render a complete expression tree as a canonical string.
+render_expression(Tree, Text) :-
+    render_in_context(Tree, 0, root, Text).
