@@ -9,6 +9,7 @@
 
 :- use_module(library(lists)).
 :- use_module(library(aggregate)).
+:- discontiguous clue/2.
 
 % dept/1 — the four department values
 dept(research).
@@ -140,3 +141,11 @@ count_solutions(Active, N) :-
               apply_clues(Active, Solution) ),
             Solutions),
     length(Solutions, N).
+
+% =========================================================================
+% P1.c — clue 9 (repair): make the puzzle have exactly one solution
+% =========================================================================
+
+% CLUE 9: The friend in the testing department prefers the AI project.
+clue(9, Solution) :-
+    member(p(_Name, testing, _Lang, 'AI'), Solution).
