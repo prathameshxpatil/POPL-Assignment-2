@@ -132,3 +132,46 @@
   (newline)
   (display (postorder tree))
   (newline))
+
+; -------------------------------------------------------------------------
+; Tree Height and Leaf Count Helpers
+;
+; Conventions:
+; - The height of '() is 0.
+; - The height of a node is 1 + max(height(left), height(right)).
+;   A single node has height 1.
+; - A leaf is a node whose left and right subtrees are both '().
+; - The empty tree '() has 0 leaves.
+; -------------------------------------------------------------------------
+
+; tree-height : tree -> number
+(define (tree-height tree)
+  (if (null? tree)
+      0
+      (+ 1 (max (tree-height (tree-left tree))
+                (tree-height (tree-right tree))))))
+
+; leaf? : node -> boolean
+(define (leaf? tree)
+  (and (null? (tree-left tree))
+       (null? (tree-right tree))))
+
+; tree-leaf-count : tree -> number
+(define (tree-leaf-count tree)
+  (cond
+    ((null? tree) 0)
+    ((leaf? tree) 1)
+    (else (+ (tree-leaf-count (tree-left tree))
+             (tree-leaf-count (tree-right tree))))))
+
+; -------------------------------------------------------------------------
+; S1.c — print-height-and-leaves
+;
+; Prints one line: the list (height leaf-count) using `display`,
+; followed by a newline.
+; -------------------------------------------------------------------------
+
+; print-height-and-leaves : tree -> void
+(define (print-height-and-leaves tree)
+  (display (list (tree-height tree) (tree-leaf-count tree)))
+  (newline))
