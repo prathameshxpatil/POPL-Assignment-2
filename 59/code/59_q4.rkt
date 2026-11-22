@@ -73,3 +73,18 @@
 ; Defined strictly using make-inserter.
 (define (insert-if-short x lst n)
   ((make-inserter x (lambda (len) (< len n))) lst))
+
+; -------------------------------------------------------------------------
+; S2.a — print-insert-result
+; -------------------------------------------------------------------------
+
+; print-insert-result : -> void
+; Takes no arguments. Reads x, lst, and n in that order from stdin using read.
+; Computes the result via insert-if-short and displays it followed by newline.
+; Prints NO prompt text.
+(define (print-insert-result)
+  (let* ([x (read)]
+         [lst (read)]
+         [n (read)])
+    (display (insert-if-short x lst n))
+    (newline)))
